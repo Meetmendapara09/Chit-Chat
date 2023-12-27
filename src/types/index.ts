@@ -44,5 +44,5 @@ export type INewUser = {
     name: string;
     email : string;
     username: string;
-    passwoerd:string;
+    password:string;
 };
