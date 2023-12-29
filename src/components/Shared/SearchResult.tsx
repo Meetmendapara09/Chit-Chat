@@ -10,13 +10,13 @@ type SearchResultsProps = {
 const SearchResults = ({ isSearchFetching, searchedPosts }:
 SearchResultsProps) => {
     if(isSearchFetching) return <Loader />
-    if (searchedPosts && searchedPosts.documents.length > 0) return 
-    return (
-        <GridPostList posts={searchedPosts.documents} />
+    if (searchedPosts && searchedPosts.length > 0) { 
+        return 
+            <GridPostList posts={searchedPosts} />
     }
     return (
-    <p classname="text-light-4 mt-10 text-center w-4">NO results found</p>
+    <p className="text-light-4 mt-10 text-center w-4">NO results found</p>
     )
 }
 
-export default SearchResults
+export default SearchResults;
