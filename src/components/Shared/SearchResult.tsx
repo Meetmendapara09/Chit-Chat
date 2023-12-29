@@ -1,5 +1,5 @@
 import { Models } from 'appwrite';
-import Loader from '@/components/shared//Loader';
+import Loader from '@/components/Shared/Loader';
 import  GridPostList  from '@/components/shared//GridPostList';
 
 type SearchResultsProps = {
