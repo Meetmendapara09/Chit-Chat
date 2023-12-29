@@ -17,7 +17,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { ProfileUploader, Loader } from "@/components/shared";
 
-import { ProfileValidation } from "@/lib/validation";
+import { ProfileValidation } from "@/lib/Validation";
 import { useUserContext } from "@/context/AuthContext";
 import { useGetUserById, useUpdateUser } from "@/lib/react-query/queries";
 
