@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -6,10 +7,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import Loader from "@/components/shared/Loader";
+import Loader from "@/components/Shared/Loader";
 import { useToast } from "@/components/ui/use-toast";
 
-import { SigninValidation } from "@/lib/validation";
+import { SigninValidation } from "@/lib/Validation";
 import { useSignInAccount } from "@/lib/react-query/queries";
 import { useUserContext } from "@/context/AuthContext";
 
@@ -19,7 +20,7 @@ const SigninForm = () => {
   const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
 
   // Query
-  const { mutateAsync: signInAccount, isLoading } = useSignInAccount();
+  const { mutateAsync: signInAccount, isPending } = useSignInAccount();
 
   const form = useForm<z.infer<typeof SigninValidation>>({
     resolver: zodResolver(SigninValidation),
@@ -94,7 +95,7 @@ const SigninForm = () => {
           />
 
           <Button type="submit" className="shad-button_primary">
-            {isLoading || isUserLoading ? (
+            {isPending || isUserLoading ? (
               <div className="flex-center gap-2">
                 <Loader /> Loading...
               </div>
