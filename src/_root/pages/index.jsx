@@ -54,7 +54,7 @@ function Example() {
   return (
     <div>
       <h1>Infinite Loading</h1>
-      {status === 'loading' ? (
+      {status === 'pending' ? (
         <p>Loading...</p>
       ) : status === 'error' ? (
         <span>Error: {error.message}</span>
