@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 
-import { Loader } from "@/components/shared";
+import Loader from "@/components/Shared/Loader";
 import PostForm from "@/components/forms/PostForm";
 import { useGetPostById } from "@/lib/react-query/queries";
 

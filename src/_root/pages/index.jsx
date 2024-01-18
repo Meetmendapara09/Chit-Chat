@@ -22,18 +22,7 @@ export default function App() {
 function Example() {
   const { ref, inView } = useInView()
 
-  const {
-    status,
-    data,
-    error,
-    isFetching,
-    isFetchingNextPage,
-    isFetchingPreviousPage,
-    fetchNextPage,
-    fetchPreviousPage,
-    hasNextPage,
-    hasPreviousPage,
-  } = useInfiniteQuery(
+  const { status, data, error, isFetching, isFetchingNextPage, isFetchingPreviousPage, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage,} = useInfiniteQuery(
     ['projects'],
     async ({ pageParam = 0 }) => {
       const res = await axios.get('/api/projects?cursor=' + pageParam)
