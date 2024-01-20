@@ -1,6 +1,6 @@
 import { Models } from 'appwrite';
 import Loader from '@/components/Shared/Loader';
-import  GridPostList  from '@/components/shared//GridPostList';
+import  GridPostList  from '@/components/Shared/GridPostList';
 
 type SearchResultsProps = {
     isSearchFetching: boolean;
