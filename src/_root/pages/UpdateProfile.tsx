@@ -15,7 +15,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { Button } from '@/components/ui/button';
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
-import { ProfileUploader, Loader } from "@/components/shared";
+import Loader from "@/components/Shared/Loader";
+import ProfileUploader  from "@/components/Shared/ProfileUploader"
 
 import { ProfileValidation } from "@/lib/Validation";
 import { useUserContext } from "@/context/AuthContext";
