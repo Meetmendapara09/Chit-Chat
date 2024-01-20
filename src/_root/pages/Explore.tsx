@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 
-import { Input } from '@/components/ui/input';
+import { Input } from "@/components/ui/input.tsx";
 import useDebounce from '@/hooks/useDebounce';
 import { GridPostList, Loader } from "@/components/Shared";
 import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
@@ -60,7 +60,7 @@ const Explore = () => {
             height={24}
             alt="search"
           />
-          <Inputs
+          <Input
             type="text"
             placeholder="Search"
             className="explore-search"
