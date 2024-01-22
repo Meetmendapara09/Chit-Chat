@@ -17,7 +17,8 @@ import { Button } from "../ui/button";
 import { PostValidation } from "@/lib/Validation"; 
 import { useToast } from "@/components/ui/use-toast";
 import { useUserContext } from "@/context/AuthContext";
-import { FileUploader, Loader } from "@/components/shared";
+import Loader from "@/components/Shared/Loader";
+import FileUploader from "@/components/Shared/FileUploader";
 import { useCreatePost, useUpdatePost } from "@/lib/react-query/queries";
 
 type PostFormProps = {
