@@ -1,49 +1,66 @@
-import React from 'react'
-import Link from 'next/link'
-import axios from 'axios'
-import { useInView } from 'react-intersection-observer'
+import React, { useEffect } from 'react';
+import Link from 'next/link';
+import axios from 'axios';
+import { useInView } from 'react-intersection-observer';
 import {
   useInfiniteQuery,
   QueryClient,
   QueryClientProvider,
-} from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
-const queryClient = new QueryClient()
+interface PostData {
+  id: number;
+  name: string;
+  // other properties...
+}
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <Example />
     </QueryClientProvider>
-  )
+  );
 }
 
 function Example() {
-  const { ref, inView } = useInView()
+  const { ref, inView } = useInView();
 
-  const { status, data, error, isFetching, isFetchingNextPage, isFetchingPreviousPage, fetchNextPage, fetchPreviousPage, hasNextPage, hasPreviousPage,} = useInfiniteQuery(
+  const {
+    status,
+    data,
+    error,
+    isFetching,
+    isFetchingNextPage,
+    isFetchingPreviousPage,
+    fetchNextPage,
+    fetchPreviousPage,
+    hasNextPage,
+    hasPreviousPage,
+  } = useInfiniteQuery<{ pages: { nextId: string; data: PostData[] }[] }>(
     ['projects'],
     async ({ pageParam = 0 }) => {
-      const res = await axios.get('/api/projects?cursor=' + pageParam)
-      return res.data
+      const res = await axios.get('/api/projects?cursor=' + pageParam);
+      return res.data;
     },
     {
       getPreviousPageParam: (firstPage) => firstPage.previousId ?? undefined,
       getNextPageParam: (lastPage) => lastPage.nextId ?? undefined,
-    },
-  )
-
-  React.useEffect(() => {
-    if (inView) {
-      fetchNextPage()
     }
-  }, [inView , fetchNextPage])
+  );
+
+  useEffect(() => {
+    if (inView) {
+      fetchNextPage();
+    }
+  }, [inView, fetchNextPage]);
 
   return (
     <div>
       <h1>Infinite Loading</h1>
-      {status === 'pending' ? (
+      {status === 'loading' ? (
         <p>Loading...</p>
       ) : status === 'error' ? (
         <span>Error: {error.message}</span>
@@ -104,5 +121,5 @@ function Example() {
       </Link>
       <ReactQueryDevtools initialIsOpen />
     </div>
-  )
+  );
 }

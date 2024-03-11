@@ -4,13 +4,16 @@ import { useInView } from "react-intersection-observer";
 import { Input } from "@/components/ui/input.tsx";
 import useDebounce from '@/hooks/useDebounce';
 import { GridPostList, Loader } from "@/components/Shared";
-import { useGetPosts, useSearchPosts } from "@/lib/react-query/queries";
+import { useGetPosts, useSearchPosts, PostData } from "@/lib/react-query/queries";
 
-export type SearchResultProps = {
+interface SearchResult {
+  documents: PostData[];
+}
+
+interface SearchResultProps {
   isSearchFetching: boolean;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  searchedPosts: any;
-};
+  searchedPosts: SearchResult;
+}
 
 const SearchResults = ({ isSearchFetching, searchedPosts }: SearchResultProps) => {
   if (isSearchFetching) {
@@ -28,26 +31,22 @@ const Explore = () => {
   const { ref, inView } = useInView();
   const { data: posts, fetchNextPage, hasNextPage } = useGetPosts();
 
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState<string>("");
   const debouncedSearch = useDebounce(searchValue, 500);
-  const { data: searchedPosts, isFetching: isSearchFetching } = useSearchPosts(debouncedSearch);
+  const { data: searchedPosts, isFetching: isSearchFetching } = useSearchPosts(debouncedSearch) as { data: SearchResult, isFetching: boolean };
 
   useEffect(() => {
     if (inView && !searchValue) {
       fetchNextPage();
     }
-  }, [inView, searchValue , fetchNextPage]);
+  }, [inView, searchValue, fetchNextPage]);
 
-  if (!posts)
-    return (
-      <div className="flex-center w-full h-full">
-        <Loader />
-      </div>
-    );
+  if (!posts) {
+    return <Loader />;
+  }
 
   const shouldShowSearchResults = searchValue !== "";
-  const shouldShowPosts = !shouldShowSearchResults && 
-    posts.pages.every((item) => item.documents.length === 0);
+  const shouldShowPosts = !shouldShowSearchResults && posts.pages.every((item) => item.documents.length === 0);
 
   return (
     <div className="explore-container">
@@ -110,4 +109,5 @@ const Explore = () => {
     </div>
   );
 };
+
 export default Explore;
