@@ -12,7 +12,6 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 interface PostData {
   id: number;
   name: string;
-  // other properties...
 }
 
 const queryClient = new QueryClient();

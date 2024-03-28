@@ -1,13 +1,12 @@
 import { Models } from "appwrite";
 
-// import { useToast } from "@/components/ui/use-toast";
 import  Loader from "@/components/Shared/Loader";
 import PostCard from "@/components/Shared/PostCard";
 import  UserCard  from "@/components/Shared/UserCard";
 import { useGetRecentPosts, useGetUsers } from "@/lib/react-query/queries";
 
 const Home = () => {
-  // const { toast } = useToast();
+  const { toast } = useToast();
 
   const {
     data: posts,
