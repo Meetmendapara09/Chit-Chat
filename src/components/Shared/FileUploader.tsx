@@ -19,7 +19,7 @@ const FileUploader = ({ fieldChange, mediaUrl }: FileUploaderProps) => {
       fieldChange(acceptedFiles);
       setFileUrl(convertFileToUrl(acceptedFiles[0]));
     },
-    [file]
+    [fieldChange] // Include fieldChange in the dependency array
   );
 
   const { getRootProps, getInputProps } = useDropzone({
