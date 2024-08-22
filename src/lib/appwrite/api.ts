@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ID, Query } from "appwrite";
+import { ID, ImageGravity, Query } from "appwrite";
 
 import { appwriteConfig, account, databases, storage, avatars } from "./config";
 import { IUpdatePost, INewPost, INewUser, IUpdateUser } from "@/types";
@@ -62,7 +62,7 @@ export async function saveUserToDB(user: {
 // ============================== SIGN IN
 export async function signInAccount(user: { email: string; password: string }) {
   try {
-    const session = await account.createEmailSession(user.email, user.password);
+    const session = await account.createSession(user.email, user.password);
 
     return session;
   } catch (error) {
@@ -185,18 +185,18 @@ export function getFilePreview(fileId: string) {
       fileId,
       2000,
       2000,
-      "top",
+      ImageGravity.Top,
       100
     );
 
-    if (!fileUrl) throw Error;
+    if (!fileUrl) throw new Error("File URL not found");
 
     return fileUrl;
   } catch (error) {
     console.log(error);
+    throw error;
   }
 }
-
 // ============================== DELETE FILE
 export async function deleteFile(fileId: string) {
   try {

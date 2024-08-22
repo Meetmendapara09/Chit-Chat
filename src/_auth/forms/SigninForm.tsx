@@ -29,27 +29,25 @@ const SigninForm = () => {
     },
   });
 
-  
-
   const handleSignin = async (user: z.infer<typeof SigninValidation>) => {
-    const session = await signInAccount(user);
+    try {
+      const session = await signInAccount(user);
 
-    if (!session) {
-      toast({ title: "Login failed. Please try again." });
-      
-      return;
-    }
+      if (!session) {
+        toast({ title: "Login failed. Please try again." });
+        return;
+      }
 
-    const isLoggedIn = await checkAuthUser();
+      const isLoggedIn = await checkAuthUser();
 
-    if (isLoggedIn) {
-      form.reset();
-
-      navigate("/");
-    } else {
-      toast({ title: "Login failed. Please try again. this is changed", });
-      
-      return;
+      if (isLoggedIn) {
+        form.reset();
+        navigate("/");
+      } else {
+        toast({ title: "Login failed. Please try again." });
+      }
+    } catch {
+      toast({ title: "An unexpected error occurred. Please try again." });
     }
   };
 
@@ -74,9 +72,9 @@ const SigninForm = () => {
               <FormItem>
                 <FormLabel className="shad-form_label">Email</FormLabel>
                 <FormControl>
-                  <Input type="text" className="shad-input" {...field} />
+                  <Input type="text" className="shad-input" {...field} aria-describedby="email-error" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage id="email-error" />
               </FormItem>
             )}
           />
@@ -88,9 +86,9 @@ const SigninForm = () => {
               <FormItem>
                 <FormLabel className="shad-form_label">Password</FormLabel>
                 <FormControl>
-                  <Input type="password" className="shad-input" {...field} />
+                  <Input type="password" className="shad-input" {...field} aria-describedby="password-error" />
                 </FormControl>
-                <FormMessage />
+                <FormMessage id="password-error" />
               </FormItem>
             )}
           />

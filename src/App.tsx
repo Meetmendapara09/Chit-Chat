@@ -16,8 +16,11 @@ import RootLayout from "./_root/RootLayout";
 import SignupForm from "@/_auth/forms/SignupForm";
 import SigninForm from "@/_auth/forms/SigninForm";
 import { Toaster } from "@/components/ui/toaster";
-
+import { Client } from 'appwrite';
 import "./globals.css";
+
+const client = new Client();
+client.setEndpoint('https://cloud.appwrite.io/v1').setProject('658ac042dcf59ef5ec42');
 
 const App = () => {
   return (
